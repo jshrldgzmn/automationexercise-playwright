@@ -30,3 +30,35 @@ test('Should navigate from home to products @regression', async ( {homePage, pro
     //Verify product page loaded
     await productsPage.expectPageLoaded()
 })
+
+test('User should navigate from home to products and search for any product @regression', async ( {homePage, productsPage}) => {
+    //Start navigate to home page
+    await homePage.goto()
+    await homePage.expectPageLoaded()
+
+    //Navigate from nav bar and clicking product link
+    await homePage.navBar.navigateTo(homePage.navBar.productLink)
+
+    //Verify product page loaded
+    await productsPage.expectPageLoaded()
+
+    //Search for product
+    await productsPage.searchProduct('Dress')
+    await productsPage.expectSearchResultsVisible()
+})
+
+test('Search for an invalid product @regression', async ( {homePage, productsPage}) => {
+    //Start navigate to home page
+    await homePage.goto()
+    await homePage.expectPageLoaded()
+
+    //Navigate from nav bar and clicking product link
+    await homePage.navBar.navigateTo(homePage.navBar.productLink)
+
+    //Verify product page loaded
+    await productsPage.expectPageLoaded()
+
+    //Search for product
+    await productsPage.searchProduct('xyzproductdoesnotexist123')
+    await expect(productsPage.productsList).toHaveCount(0)
+})
