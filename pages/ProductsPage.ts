@@ -21,7 +21,7 @@ export class ProductsPage extends BasePage {
     }
 
     async goto() {
-        await super.goto('products')
+        await super.goto('/products')
     }
 
     async searchProduct(productName : string) {

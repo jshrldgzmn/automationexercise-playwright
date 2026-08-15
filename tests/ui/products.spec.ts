@@ -1,5 +1,4 @@
 import { test, expect } from '../../fixtures'
-import { HomePage } from '../../pages/HomePage'
 
 test.beforeEach(async ({ productsPage }) => {
     await productsPage.goto()
