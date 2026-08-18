@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixtures'
-
+import { users } from '../../data/users'
 
 test.beforeEach(async ({ homePage }) => {
     await homePage.goto()
@@ -25,7 +25,7 @@ test('Navbar links should all be visible @regression', async ({ homePage }) => {
 })
 
 test('Footer subscription should work @regression', async ({ homePage }) => {
-    await homePage.footer.subscribe('test@gmail.com')
+    await homePage.footer.subscribe(users.newUser.email)
     await expect(homePage.footer.subscriptionSuccess).toBeVisible()
 })
 

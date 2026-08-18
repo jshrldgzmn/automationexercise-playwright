@@ -1,4 +1,5 @@
 import { test, expect } from '../fixtures'
+import { users } from '../data/users'
 
 test.beforeEach(async ({ loginPage }) => {
     await loginPage.goto()
@@ -16,10 +17,10 @@ test('login page should load correctly @smoke @login', async ({ page }) => {
 })
 
 test('should show error on invalid login @regression @login', async ({ loginPage }) => {
-    await loginPage.login('testuser@example.com', 'testpassword123')
+    await loginPage.login(users.invalid.email, users.invalid.password)
     await loginPage.expectLoginFailure()
 })
 
 test('should fill in signup form @regression', async({ loginPage }) =>{
-    await loginPage.signup('joshua testing', "test2@gmail.com")
+    await loginPage.signup(users.newUser.name, users.newUser.email)
 })

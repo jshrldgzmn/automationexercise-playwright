@@ -1,4 +1,5 @@
 import { test, expect } from '../../fixtures'
+import { products } from '../../data/products'
 
 test.beforeEach(async ({ productsPage }) => {
     await productsPage.goto()
@@ -15,7 +16,7 @@ test('Products page should load correctly @smoke', async ( { productsPage }) => 
 })
 
 test('Should search for a product @regression', async ( { productsPage }) => {
-    await productsPage.searchProduct('T-Shirt')
+    await productsPage.searchProduct(products.search.validTerm)
     await productsPage.expectSearchResultsVisible()
 })
 
@@ -43,7 +44,7 @@ test('User should navigate from home to products and search for any product @reg
     await productsPage.expectPageLoaded()
 
     //Search for product
-    await productsPage.searchProduct('Dress')
+    await productsPage.searchProduct(products.search.dressTerm)
     await productsPage.expectSearchResultsVisible()
 })
 
@@ -59,6 +60,6 @@ test('Search for an invalid product @regression', async ( {homePage, productsPag
     await productsPage.expectPageLoaded()
 
     //Search for product
-    await productsPage.searchProduct('xyzproductdoesnotexist123')
+    await productsPage.searchProduct(products.search.invalidTerm)
     await expect(productsPage.productsList).toHaveCount(0)
 })
