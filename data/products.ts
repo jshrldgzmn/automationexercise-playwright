@@ -4,6 +4,7 @@ export const products = {
         dressTerm: 'Dress',
         invalidTerm: '123asd123asd123asd',
         brandTerm: 'Polo',
+        topTerm: 'Top'
     },
     categories: {
         women: 'Women',
