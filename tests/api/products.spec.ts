@@ -32,7 +32,7 @@ test.describe('Products API', () => {
     })
 
     test('GET all brands should return 200 @api', async ({ request }) => {
-        //POST is not supported on this endpoint
+        //Send GET request to brands list endpoint
         const response = await request.get(`${BASE_URL}/api/brandsList`)
         expect(response.status()).toBe(200)
 
