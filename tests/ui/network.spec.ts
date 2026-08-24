@@ -24,7 +24,7 @@ test.describe('Network Interception' , () => {
                 status: 200,
                 contentType: 'application/json',
                 body: JSON.stringify({
-                    responseCode: 500,
+                    responseCode: 200,
                     products: [
                         {
                             id: 999,
@@ -102,7 +102,7 @@ test.describe('Network Interception' , () => {
         await page.route('**/*fundingchoicesmessages*', route => route.abort())
         await page.route('**/*cloudflareinsights*', route => route.abort())
 
-        //Intercept products lists API and block by file extension
+        //Block image requests by file extension
         await page.route('**/*.jpg', async route => route.abort())
         await page.route('**/*.png', async route => route.abort())
         //Navigate to products page
@@ -124,14 +124,12 @@ test.describe('Network Interception' , () => {
         await page.route('**/api/productsList', async route => {
         await page.waitForTimeout(2000)
         await route.continue()
+        })
 
         //Navigate to products page
         await page.goto('/products', { waitUntil: 'domcontentloaded'})
-
         //Page should still load after intercepting the products list API
         await expect(page).toHaveURL('/products')
         await expect(page.getByRole('textbox', { name: 'Search Product' })).toBeVisible()
         })
-    })
-
 })
