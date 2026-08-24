@@ -21,6 +21,37 @@ test.describe('Network Interception' , () => {
         //Intercept products API and simulate server error
         await page.route('**/api/productsList', async route => {
             await route.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({
+                    responseCode: 500,
+                    products: [
+                        {
+                            id: 999,
+                            name: 'Mocked Product',
+                            price: 'Rs. 100',
+                            brand: 'Mock Brand',
+                            category: {
+                                usertype: { usertype: 'Women',},
+                                category: 'Tops'
+                            }
+                        }
+                    ]
+                })
+            })
+        })
+        //Navigate to products page
+        await page.goto('/products', { waitUntil: 'domcontentloaded'})
+
+        //Verify page loaded
+        await expect(page).toHaveURL('/products')
+    })
+
+
+    test('Should handle API error gracefully @regression', async ({ page }) => {
+        //Intercept products API and simulate server error
+        await page.route('**/api/productsList', async route => {
+            await route.fulfill({
                 status: 500,
                 contentType: 'application/json',
                 body: JSON.stringify({
@@ -29,12 +60,14 @@ test.describe('Network Interception' , () => {
                 })
             })
         })
+
         //Navigate to products page
-        await page.goto('products', { waitUntil: 'domcontentloaded'})
+        await page.goto('/products', { waitUntil: 'domcontentloaded'})
 
         //Page should still load even if API fails
         await expect(page).toHaveURL('/products')
     })
+
 
     test('Mock empty products response @regression', async ({ page }) => {
         //Block all requests to known add/tracker domains
@@ -55,7 +88,7 @@ test.describe('Network Interception' , () => {
             })
         })
         //Navigate to products page
-        await page.goto('products', { waitUntil: 'domcontentloaded'})
+        await page.goto('/products', { waitUntil: 'domcontentloaded'})
 
         //Page should still load after intercepting the products list API
         await expect(page).toHaveURL('/products')
@@ -93,7 +126,7 @@ test.describe('Network Interception' , () => {
         await route.continue()
 
         //Navigate to products page
-        await page.goto('products', { waitUntil: 'domcontentloaded'})
+        await page.goto('/products', { waitUntil: 'domcontentloaded'})
 
         //Page should still load after intercepting the products list API
         await expect(page).toHaveURL('/products')
