@@ -24,6 +24,7 @@ export class ContactPage extends BasePage {
     }
 
     async goto(){
+        await this.blockAds()
         await super.goto('/contact_us')
     }
 
