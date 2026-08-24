@@ -104,7 +104,7 @@ test.describe('User API', () => {
 
         const body = await response.json()
 
-        //Verify bad request is returned
+        //Verify user data is returned
 
         expect(body.responseCode).toBe(200)
         expect(body).toHaveProperty('user')
@@ -236,7 +236,6 @@ test.describe('User API', () => {
         })
         expect(getUpdateResponse.status()).toBe(200)
         const updateBody = await getUpdateResponse.json()
-        console.log(JSON.stringify(getUpdateResponse, null, 2))
         expect(updateBody.user.name).toEqual('Updated User')
         expect(updateBody.user.city).toEqual('Los Angeles')
 
