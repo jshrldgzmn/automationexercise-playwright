@@ -21,6 +21,7 @@ export class ProductsPage extends BasePage {
     }
 
     async goto() {
+        await this.blockAds()
         await super.goto('/products')
     }
 

@@ -146,7 +146,7 @@ test.describe('User API', () => {
         expect(createBody.responseCode).toBe(201)
         expect(createBody.message).toBe('User created!')
 
-        //Step 2 - Delete the account we just created
+        //Step 2 - Delete the created account
         const deleteResponse = await request.delete(`${BASE_URL}/api/deleteAccount`, {
             form: {
                 email: newEmail,
@@ -240,7 +240,7 @@ test.describe('User API', () => {
         expect(updateBody.user.city).toEqual('Los Angeles')
 
         
-        //Step 4 - Delete the account we just created
+        //Step 4 - Delete the created account
         const deleteResponse = await request.delete(`${BASE_URL}/api/deleteAccount`, {
             form: {
                 email: newEmail,

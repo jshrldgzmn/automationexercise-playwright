@@ -22,4 +22,11 @@ export class BasePage {
     async waitForPageLoad() {
         await this.page.waitForLoadState('domcontentloaded')
     }
+
+    async blockAds() {
+        await this.page.route('**/*googlesyndication*', route => route.abort())
+        await this.page.route('**/*doubleclick*', route => route.abort())
+        await this.page.route('**/*fundingchoicesmessages*', route => route.abort())
+        await this.page.route('**/*cloudflareinsights*', route => route.abort())
+    }
 }

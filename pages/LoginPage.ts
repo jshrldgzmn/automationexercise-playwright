@@ -21,6 +21,7 @@ export class LoginPage extends BasePage {
         this.signupButton = page.getByRole('button', { name: 'Signup' })
     }
     async goto() {
+        await this.blockAds()
         await super.goto('/login')
     }
 
